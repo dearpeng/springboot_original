@@ -1,7 +1,8 @@
 package com.honeypeng;
 
+import com.honeypeng.activemq.ActivemqProducer;
+import com.honeypeng.activemq.SpringBootActivemqProducer;
 import com.honeypeng.bean.Person;
-import com.sun.org.apache.xpath.internal.operations.String;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package com.honeypeng;
+package com.honeypeng.activemq;
 
 import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.beans.factory.annotation.Autowired;

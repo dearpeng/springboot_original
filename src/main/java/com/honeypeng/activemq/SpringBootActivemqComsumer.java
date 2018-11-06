@@ -1,4 +1,4 @@
-package com.honeypeng;
+package com.honeypeng.activemq;
 
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -19,7 +19,7 @@ public class SpringBootActivemqComsumer {
         return "还给你的垃圾信息";
     }
 
-    /*发布订阅*/
+    /*发布订阅模式*/
     @JmsListener(destination = "test.topic", containerFactory = "myJmsContainerFactory")
     public void subscribe(String text) {
         System.out.println("===========<<<<<<<<收到订阅的消息" + text);
