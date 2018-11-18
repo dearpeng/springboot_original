@@ -1,12 +1,15 @@
-package com.honeypeng.activemq;
+/*
+package com.activemq;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
 
+*/
 /**
  * Created by 08754 on 2018/11/2.
- */
+ *//*
+
 public class ActiveMqTopicProducer {
 
     public static void main(String[] args) {
@@ -41,12 +44,14 @@ public class ActiveMqTopicProducer {
         }
     }
 
-    /**
+    */
+/**
      * @param session
      * @param messageProducer
      * @throws JMSException
      * @Description 发布消息
-     */
+     *//*
+
     public static void sendMessage(Session session, MessageProducer messageProducer) throws JMSException {
         for (int i = 0; i < 6; i++) {
             TextMessage message = session.createTextMessage("ActiveMQ 发布的消息11111" + i);
@@ -56,3 +61,4 @@ public class ActiveMqTopicProducer {
     }
 
 }
+*/
