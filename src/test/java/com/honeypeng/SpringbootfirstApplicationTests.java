@@ -1,7 +1,5 @@
 package com.honeypeng;
 
-import com.honeypeng.activemq.ActivemqProducer;
-import com.honeypeng.activemq.SpringBootActivemqProducer;
 import com.honeypeng.bean.Person;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.junit.Test;
@@ -23,11 +21,11 @@ public class SpringbootfirstApplicationTests {
 	@Autowired
 	private ApplicationContext context;
 
-	@Autowired
+	/*@Autowired
 	private ActivemqProducer producer;
 
 	@Autowired
-	private SpringBootActivemqProducer springBootActivemqProducer;
+	private SpringBootActivemqProducer springBootActivemqProducer;*/
 
 	@Test
 	public void testHello(){
@@ -41,7 +39,8 @@ public class SpringbootfirstApplicationTests {
 		System.out.println(Objects.equals("111", null));
 	}
 
-	@Test
+	//activemq 注释
+	/*@Test
 	public void testActiveMq(){
 		ActiveMQQueue queue = new ActiveMQQueue("my-destination");
 		for (int i = 0; i < 5; i++) {
@@ -63,5 +62,5 @@ public class SpringbootfirstApplicationTests {
 		for (int i = 0; i < 10; i++) {
 			springBootActivemqProducer.publish("test.topic", "Topic Message " + i);
 		}
-	}
+	}*/
 }

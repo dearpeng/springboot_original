@@ -1,4 +1,5 @@
-package com.honeypeng.activemq;
+/*
+package com.activemq;
 
 import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,18 +7,21 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import javax.jms.Destination;
 
+*/
 /**
  * Created by 08754 on 2018/11/6.
- */
+ *//*
+
 @Component(value = "springBootActivemqProducer")
 public class SpringBootActivemqProducer {
     @Autowired // 也可以注入JmsTemplate，JmsMessagingTemplate对JmsTemplate进行了封装
     private JmsMessagingTemplate jmsTemplate;
 
-    /*点对点*/
+    */
+/*点对点*//*
+
     // 发送消息，destination是发送到的队列，message是待发送的消息
     public void sendMessage(Destination destination, final String message){
         jmsTemplate.convertAndSend(destination, message);
@@ -28,7 +32,9 @@ public class SpringBootActivemqProducer {
         System.out.println("从out.queue队列收到的回复报文为:"+text);
     }
 
-    /*发布订阅模式*/
+    */
+/*发布订阅模式*//*
+
     public void publish(String destinationName, String message) {
         Destination destination = new ActiveMQTopic(destinationName);
         System.out.println("============>>>>> 发布topic消息 " + message);
@@ -36,3 +42,4 @@ public class SpringBootActivemqProducer {
     }
 
 }
+*/

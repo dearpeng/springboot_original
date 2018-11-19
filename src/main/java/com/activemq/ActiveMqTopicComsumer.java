@@ -1,18 +1,18 @@
-package com.honeypeng.activemq;
+/*
+package com.activemq;
 
 import javax.jms.*;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.core.MessageCreator;
 
+*/
 /**
  * Created by 08754 on 2018/11/2.
- */
+ *//*
+
 public class ActiveMqTopicComsumer {
-    /*public static void main(String[] args) {
+    */
+/*public static void main(String[] args) {
         ConnectionFactory connectionFactory; // 连接工厂，用来生产Connection
         Connection connection = null; // 连接
         Session session; // 会话，接收或者发送消息的线程
@@ -32,7 +32,8 @@ public class ActiveMqTopicComsumer {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    }*/
+    }*//*
+
 
 
     public static void main(String[] args) throws JMSException {
@@ -59,3 +60,4 @@ public class ActiveMqTopicComsumer {
 //      connection.close();
     }
 }
+*/

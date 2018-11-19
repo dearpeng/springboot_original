@@ -1,4 +1,5 @@
-package com.honeypeng.activemq;
+/*
+package com.activemq;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.jms.annotation.JmsListener;
@@ -7,9 +8,11 @@ import org.springframework.stereotype.Component;
 
 import javax.jms.*;
 
+*/
 /**
  * Created by 08754 on 2018/10/22.
- */
+ *//*
+
 @Component("comsumer")
 public class ActivemqComsumer {
     //@JmsListener是Spring 4.1为我们提供的一个新特性，用来简化JMS开发。我们只需在这个注解的属性destination指定要监听的目的地，即可接收该目的地发送的消息。此例监听my
@@ -55,3 +58,4 @@ public class ActivemqComsumer {
 //        }
     }
 }
+*/

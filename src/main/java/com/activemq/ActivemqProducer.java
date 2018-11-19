@@ -1,18 +1,20 @@
-package com.honeypeng.activemq;
+/*
+package com.activemq;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQTextMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.jms.*;
 
+*/
 /**
  * Created by 08754 on 2018/10/23.
- */
+ *//*
+
 @Component("producer")
 public class ActivemqProducer {
     @Autowired // 也可以注入JmsTemplate，JmsMessagingTemplate对JmsTemplate进行了封装
@@ -56,4 +58,4 @@ public class ActivemqProducer {
             connection.close();
         }
     }
-}
+}*/
