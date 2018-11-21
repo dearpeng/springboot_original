@@ -1,4 +1,4 @@
-/*
+package com.honeypeng.activemq;/*
 package com.activemq;
 
 import org.springframework.jms.annotation.JmsListener;

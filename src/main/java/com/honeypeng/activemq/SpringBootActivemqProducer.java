@@ -1,4 +1,4 @@
-/*
+package com.honeypeng.activemq;/*
 package com.activemq;
 
 import org.apache.activemq.command.ActiveMQTopic;
