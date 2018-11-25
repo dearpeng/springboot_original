@@ -38,8 +38,8 @@ public class HelloController {
     * @author pengWX
     * @date 2018/11/19 17:59
     */
-    @RequestMapping("/")
+   /* @RequestMapping("/")
     public String index() {
         return "index";
-    }
+    }*/
 }

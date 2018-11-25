@@ -14,6 +14,8 @@ SPRING:
 #第三个配置文件
 SERVER:
   PORT: 8083
+  servlet:
+    context-path: /crud
 SPRING:
   PROFILES: PRODUCT
 
