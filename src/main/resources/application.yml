@@ -18,8 +18,9 @@ SERVER:
     context-path: /crud
 SPRING:
   PROFILES: PRODUCT
-#  messages:
-#    basename: i18n.login #properties 前缀名
+  messages:
+    basename: i18n.login
+   #properties 前缀名
 
 #PERSON:
 #  NAME: ZHANGSAN
