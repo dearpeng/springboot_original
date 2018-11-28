@@ -1,13 +1,14 @@
 package com.honeypeng.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by jx on 2018/9/16.
@@ -31,6 +32,19 @@ public class HelloController {
         map.put("hello", "<h1>hello View Data</h1>");
         map.put("users", Arrays.asList("zhangsan", "lisi", "wangwu"));
         return "/hello";
+    }
+
+    @PostMapping(value ="/user/login")
+    public String login(@RequestParam("username") String username,@RequestParam("password") String password
+       , Model model
+    ){
+        if (!StringUtils.isEmpty(username) && Objects.equals("123456",password)){
+
+            return "dashboart";
+        }else {
+            model.addAttribute("msg", "用户名或密码为空");
+            return "index.html";
+        }
     }
 
     /* *
