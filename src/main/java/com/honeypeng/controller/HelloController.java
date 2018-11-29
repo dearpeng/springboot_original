@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,11 +37,12 @@ public class HelloController {
 
     @PostMapping(value ="/user/login")
     public String login(@RequestParam("username") String username,@RequestParam("password") String password
-       , Model model
+       , Model model,HttpSession session
     ){
         if (!StringUtils.isEmpty(username) && Objects.equals("123456",password)){
-
-            return "dashboart";
+            //防止表单重复提交,采用重定向
+            session.setAttribute("username",username);
+            return "redirect:/main.html";
         }else {
             model.addAttribute("msg", "用户名或密码为空");
             return "index.html";
