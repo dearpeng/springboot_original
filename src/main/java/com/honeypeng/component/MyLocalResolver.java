@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
 /**
+ * 用于国际化
  * Created by PengWX on 2018/11/27.
  */
 public class MyLocalResolver implements LocaleResolver {
@@ -15,8 +16,10 @@ public class MyLocalResolver implements LocaleResolver {
     @Override
     public Locale resolveLocale(HttpServletRequest httpServletRequest) {
         String lan = httpServletRequest.getParameter("lan");
+        //取系统默认的
         Locale locale = Locale.getDefault();
         if (!StringUtils.isEmpty(lan)) {
+            //链接参数,切换语言用
             String[] split = lan.split("_");
             locale = new Locale(split[0], split[1]);
         }

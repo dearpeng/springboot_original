@@ -9,6 +9,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.*;
 
 
@@ -67,39 +73,27 @@ public class SpringbootfirstApplicationTests {
 
     @Test
     public void randomQuestion() {
+        String s = "请问您现在是否需要在我行申请一笔信用卡购车分期付款业务？您对此分期付款业务情况是否了解？";
+        System.out.println("===========================");
+        System.out.println(s.charAt(11));
+    }
 
-        String[] regulation = {"鲁班", "诸葛亮", "貂蝉", "吕布"};
-        final List<String> regulationOrder = Arrays.asList(regulation);
-        String[] ordered = {"貂蝉", "诸葛亮", "吕布", "貂蝉", "鲁班", "诸葛亮", "貂蝉", "鲁班", "诸葛亮"};
-        List<String> orderedList = Arrays.asList(ordered);
-        Collections.sort(orderedList, new Comparator<String>() {
-            public int compare(String o1, String o2) {
-                int io1 = regulationOrder.indexOf(o1);
-                int io2 = regulationOrder.indexOf(o2);
-                return io1 - io2;
-            }
-        });
-        System.out.println(orderedList);
-        String[] tiMu = new String[20];
-        for (int i = 0; i < tiMu.length; i++) {
-            tiMu[i] = "第" + (i + 1) + "题";
-        }
-        String[] temp = new String[10];
-        //开始抽取题目
-        //产生10个随机数
-        List<Integer> list = new ArrayList<Integer>();
-        int i;
-        while (list.size() < 10) {
-            i = (int) (Math.random() * 20);
-            if (!list.contains(i)) {
-                list.add(i);
-            }
-        }
-        for (int j = 0; j < list.size(); j++) {
-            temp[j] = tiMu[list.get(j)];
-        }
-        for (int iloop = 0; iloop < temp.length; iloop++) {
-            System.out.print(temp[iloop] + "   ");
+
+    @Test
+    public void nioTest(){
+        File file = new File("D:\\data.txt");
+        try {
+            FileOutputStream outputStream = new FileOutputStream(file);
+            FileChannel channel = outputStream.getChannel();
+            ByteBuffer buffer = ByteBuffer.allocate(1024);
+            String string = "hello java nio";
+            buffer.put(string.getBytes());
+            buffer.flip();     //此处必须要调用buffer的flip方法
+            channel.write(buffer);
+            channel.close();
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

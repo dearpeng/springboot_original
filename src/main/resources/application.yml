@@ -14,6 +14,8 @@ SPRING:
 #第三个配置文件
 SERVER:
   PORT: 8086
+
+#  增加链接,thymeleaf会自动加上
   servlet:
     context-path: /crud
 SPRING:
