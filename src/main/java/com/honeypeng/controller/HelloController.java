@@ -1,6 +1,8 @@
 package com.honeypeng.controller;
 
+import com.honeypeng.dao.DepartmentDao;
 import com.honeypeng.dao.EmployeeDao;
+import com.honeypeng.entity.Department;
 import com.honeypeng.entity.Employee;
 import org.apache.logging.log4j.message.ReusableMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class HelloController {
 
     @Autowired
     private EmployeeDao employeeDao;
+
+    @Autowired
+    private DepartmentDao departmentDao;
 
     @RequestMapping("/helloTest")
     @ResponseBody
@@ -70,4 +75,11 @@ public class HelloController {
        return "list";
 
    }
+
+    @GetMapping("/emp")
+    public String toAddPage(Model model){
+        Collection<Department> departments = departmentDao.getDepartments();
+        model.addAttribute("depts", departments);
+        return "add";
+    }
 }
