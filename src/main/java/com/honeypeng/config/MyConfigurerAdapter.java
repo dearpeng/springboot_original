@@ -8,6 +8,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import javax.imageio.spi.RegisterableService;
+
 /**
  * Created by jx on 2018/11/18.
  */
@@ -20,9 +22,15 @@ public class MyConfigurerAdapter extends WebMvcConfigurerAdapter {
      * @param @param registry:
      * @return void
      */
-    @Override
+    /*@Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/index").setViewName("index");
+    }*/
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("*").excludePathPatterns("/index","/","/user/login");
+        super.addInterceptors(registry);
     }
 
     //所有的WebMvcConfigurerAdapter组件都会一起起作用，所以自己定义一个adapter
@@ -36,10 +44,11 @@ public class MyConfigurerAdapter extends WebMvcConfigurerAdapter {
                 registry.addViewController("/main.html").setViewName("dashboard");
 
             }
-            @Override
+           /* @Override
             public void addInterceptors(InterceptorRegistry registry) {
-                registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**").excludePathPatterns("/index","/","/user/login");
-            }
+                registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("*").excludePathPatterns("/index","/","/user/login");
+//                super.addInterceptors(registry);
+            }*/
 
         };
 
