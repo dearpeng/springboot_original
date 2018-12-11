@@ -1,15 +1,18 @@
 package com.honeypeng.controller;
 
+import com.honeypeng.dao.DepartmentDao;
+import com.honeypeng.dao.EmployeeDao;
+import com.honeypeng.entity.Department;
+import com.honeypeng.entity.Employee;
+import org.apache.logging.log4j.message.ReusableMessage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created by jx on 2018/9/16.
@@ -21,6 +24,12 @@ import java.util.Objects;
 /*@RestController*/
 @Controller
 public class HelloController {
+
+    @Autowired
+    private EmployeeDao employeeDao;
+
+    @Autowired
+    private DepartmentDao departmentDao;
 
     @RequestMapping("/helloTest")
     @ResponseBody
@@ -58,4 +67,19 @@ public class HelloController {
     public String index() {
         return "index";
     }*/
+
+   @GetMapping("/emps")
+    public String getAllEmps(Model model){
+       Collection<Employee> all = employeeDao.getAll();
+       model.addAttribute("emps", all);
+       return "list";
+
+   }
+
+    @GetMapping("/emp")
+    public String toAddPage(Model model){
+        Collection<Department> departments = departmentDao.getDepartments();
+        model.addAttribute("depts", departments);
+        return "add";
+    }
 }
