@@ -25,12 +25,6 @@ import java.util.*;
 @Controller
 public class HelloController {
 
-    @Autowired
-    private EmployeeDao employeeDao;
-
-    @Autowired
-    private DepartmentDao departmentDao;
-
     @RequestMapping("/helloTest")
     @ResponseBody
     public String helloTest() {
@@ -68,18 +62,5 @@ public class HelloController {
         return "index";
     }*/
 
-   @GetMapping("/emps")
-    public String getAllEmps(Model model){
-       Collection<Employee> all = employeeDao.getAll();
-       model.addAttribute("emps", all);
-       return "list";
 
-   }
-
-    @GetMapping("/emp")
-    public String toAddPage(Model model){
-        Collection<Department> departments = departmentDao.getDepartments();
-        model.addAttribute("depts", departments);
-        return "add";
-    }
 }

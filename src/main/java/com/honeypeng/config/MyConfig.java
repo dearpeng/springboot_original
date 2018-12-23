@@ -7,10 +7,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.config.SimpleJmsListenerContainerFactory;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.LocaleResolver;
 
 import javax.jms.ConnectionFactory;
 import java.util.Locale;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * Created by 08754 on 2018/9/19.
@@ -43,5 +45,21 @@ public class MyConfig {
     @Bean
     public LocaleResolver localeResolver(){
         return new MyLocalResolver();
+    }
+
+    /***
+     * 线程池
+     * @return
+     */
+    @Bean("taskExecutor")
+    public ThreadPoolTaskExecutor  taskExecutor(){
+        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+        taskExecutor.setCorePoolSize(10);
+        taskExecutor.setKeepAliveSeconds(200);
+        taskExecutor.setMaxPoolSize(20);
+        taskExecutor.setQueueCapacity(20);
+        taskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+        taskExecutor.initialize();
+        return taskExecutor;
     }
 }

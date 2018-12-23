@@ -37,6 +37,7 @@ public class MyConfigurerAdapter extends WebMvcConfigurerAdapter {
     @Bean //将组件注册在容器
     public WebMvcConfigurerAdapter webMvcConfigurerAdapter(){
         WebMvcConfigurerAdapter adapter = new WebMvcConfigurerAdapter() {
+            //这边写就不用单独写controller转到登陆页面
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/").setViewName("index");
