@@ -14,13 +14,15 @@ SPRING:
 #第三个配置文件
 SERVER:
   PORT: 8080
-  #  增加链接,thymeleaf会自动加上
-  servlet:
-    context-path: /crud
+#  #  增加链接,thymeleaf会自动加上
+#  servlet:
+#    context-path: /crud
 SPRING:
   PROFILES: PRODUCT
   messages:
     basename: i18n.login
+  mvc:
+    date-format: yyyy-MM-dd HH:mm
    #properties 前缀名
 
 #PERSON:
