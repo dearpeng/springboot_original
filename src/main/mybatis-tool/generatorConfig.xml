@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <classPathEntry location="mysql-connector-java-8.0.12.jar"/>
+    <context id="DB2Tables" defaultModelType="flat" targetRuntime="MyBatis3">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--数据库-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://47.99.146.9:3306/test"
+                        userId="root" password="168$Enrichme">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!--实体类===到java目录,新增表的时候可以使用这个目录,表上加字段就不要用了,原来的会被覆盖-->
+        <javaModelGenerator targetPackage="com.honeypeng.entity.Employee"
+                            targetProject="D:\files\ideaSpace\">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--mapper.xml文件===到resources目录,新增表的时候可以使用这个目录,表上加字段就不要用了,原来的会被覆盖-->
+        <sqlMapGenerator targetPackage="com.honeypeng.mapper"
+                         targetProject="D:\files\ideaSpace\">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!--mapper.java文件===到java目录,新增表的时候可以使用这个目录,表上加字段就不要用了,原来的会被覆盖-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.honeypeng.mapper"
+                             targetProject="D:\files\ideaSpace\">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--表和实体名称-->
+        <table tableName="employee" domainObjectName="Employee">
+            <!--自动生成主键，可以代替useGeneratedKeys，大家不用删-->
+            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
+        </table>
+        <!--<table tableName="loan_guarantor_info" domainObjectName="LoanGuarantorInfo">-->
+        <!--&lt;!&ndash;自动生成主键，可以代替useGeneratedKeys，大家不用删&ndash;&gt;-->
+        <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="loan_project_budgent" domainObjectName="LoanProjectBudgent">-->
+        <!--&lt;!&ndash;自动生成主键，可以代替useGeneratedKeys，大家不用删&ndash;&gt;-->
+        <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="loan_project_info" domainObjectName="LoanProjectInfo">-->
+        <!--&lt;!&ndash;自动生成主键，可以代替useGeneratedKeys，大家不用删&ndash;&gt;-->
+        <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="loan_info_view" domainObjectName="LoanInfoView">-->
+
+        <!--去掉这些生成example-->
+        <!--<property name="enableCountByExample" value="false"/>-->
+        <!--<property name="enableDeleteByExample" value="false"/>-->
+        <!--<property name="enableUpdateByExample" value="false"/>-->
+        <!--<property name="enableSelectByExample" value="false"/>-->
+        <!--<property name="selectByPrimaryKeyQueryId" value="false"/>-->
+
+
+        <!--<property name="enableDeleteByPrimaryKey" value="false"/>-->
+        <!--<property name="enableInsert" value="false"/>-->
+        <!--<property name="enableSelectByPrimaryKey" value="false"/>-->
+        <!--<property name="enableUpdateByPrimaryKey" value="false"/>-->
+        <!--<property name="selectByExampleQueryId" value="true"/>-->
+        <!--</table>-->
+
+    </context>
+</generatorConfiguration>

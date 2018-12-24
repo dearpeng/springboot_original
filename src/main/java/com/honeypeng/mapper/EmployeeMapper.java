@@ -1,14 +1,30 @@
 package com.honeypeng.mapper;
 
-import com.honeypeng.entity.Employee;
-import org.apache.ibatis.annotations.Mapper;
+import com.honeypeng.entity.Employee.Employee;
+import com.honeypeng.entity.Employee.EmployeeExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
-/**
- * Created by PengWX on 2018/12/24.
- */
-@Mapper
 public interface EmployeeMapper {
-    Integer saveEmployee(Employee employee);
+    int countByExample(EmployeeExample example);
 
-    Employee selectEmployee(Integer id);
+    int deleteByExample(EmployeeExample example);
+
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(Employee record);
+
+    int insertSelective(Employee record);
+
+    List<Employee> selectByExample(EmployeeExample example);
+
+    Employee selectByPrimaryKey(Integer id);
+
+    int updateByExampleSelective(@Param("record") Employee record, @Param("example") EmployeeExample example);
+
+    int updateByExample(@Param("record") Employee record, @Param("example") EmployeeExample example);
+
+    int updateByPrimaryKeySelective(Employee record);
+
+    int updateByPrimaryKey(Employee record);
 }
