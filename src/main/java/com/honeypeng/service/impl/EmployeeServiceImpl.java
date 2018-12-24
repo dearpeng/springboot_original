@@ -38,4 +38,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public Integer deleteById(Integer id) {
         return employeeMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public Integer updateEmployee(Employee employee) {
+        return employeeMapper.updateByPrimaryKey(employee);
+    }
 }

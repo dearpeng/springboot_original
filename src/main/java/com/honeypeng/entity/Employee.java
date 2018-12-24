@@ -1,6 +1,8 @@
 package com.honeypeng.entity;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Employee {
@@ -35,6 +37,7 @@ public class Employee {
     /**
      * 生日
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date birth;
 
     /**

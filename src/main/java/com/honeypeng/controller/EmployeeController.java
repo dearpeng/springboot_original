@@ -82,7 +82,7 @@ public class EmployeeController {
      */
     @PutMapping("/emp")
     public String editEmp(Employee employee){
-        employeeService.saveEmployee(employee);
+        employeeService.updateEmployee(employee);
         return "redirect:/emps";
     }
 

@@ -82,7 +82,7 @@
 						</div>
 						<div class="form-group">
 							<label>department</label>
-							<select class="form-control" name="department.id">
+							<select class="form-control" name="departmentId">
 								<option th:selected="${emp!=null}?${emp.departmentId == dept.id}" th:value="${dept.id}" th:each="dept:${depts}" th:text="${dept.name}"></option>
 							</select>
 						</div>
