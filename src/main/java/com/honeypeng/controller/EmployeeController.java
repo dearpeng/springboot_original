@@ -4,13 +4,11 @@ import com.honeypeng.dao.DepartmentDao;
 import com.honeypeng.dao.EmployeeDao;
 import com.honeypeng.entity.Department;
 import com.honeypeng.entity.Employee;
+import com.honeypeng.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -18,13 +16,16 @@ import java.util.Collection;
  * Created by PengWX on 2018/12/7.
  */
 @Controller
-public class EmploerController {
+public class EmployeeController {
 
     @Autowired
     private EmployeeDao employeeDao;
 
     @Autowired
     private DepartmentDao departmentDao;
+
+    @Autowired
+    private IEmployeeService employeeService;
 
     /**
      * 获取员工列表
@@ -63,7 +64,7 @@ public class EmploerController {
     }
 
     /**
-     * 获取单个员工
+     * 跳转编辑页面
      * @param id
      * @return
      */
@@ -74,5 +75,45 @@ public class EmploerController {
         Employee employee = employeeDao.get(id);
         model.addAttribute("emp", employee);
         return "/add";
+    }
+
+    /**
+     * 员工修改
+     * @param employee
+     * @return
+     */
+    @PutMapping("/emp")
+    public String editEmp(Employee employee){
+        employeeDao.save(employee);
+        return "redirect:/emps";
+    }
+
+    /**
+     * 删除emp
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/emp/{id}")
+    public String deleteEmp(@PathVariable("id")Integer id){
+        employeeDao.delete(id);
+        return "redirect:/emps";
+    }
+
+    /**
+     * 测试新增
+     * @param employee
+     * @return
+     */
+    @RequestMapping("insertEmp")
+    public String saveEmp(Employee employee) {
+        Integer empId = employeeService.saveEmployee(employee);
+        return "redirect:/emps";
+    }
+
+    @PostMapping("getEmp")
+    @ResponseBody
+    public Employee getEmp(Integer id){
+        Employee employee = employeeService.selectEmployee(id);
+        return employee;
     }
 }

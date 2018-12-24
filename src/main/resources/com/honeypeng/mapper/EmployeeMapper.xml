@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honeypeng.mapper.EmployeeMapper" >
+    <resultMap id="BaseResultMap" type="com.honeypeng.entity.Employee" >
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="last_name" property="lastName" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="gender" property="gender" jdbcType="INTEGER" />
+        <result column="birth" property="birth" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <insert id="saveEmployee">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO  employee (last_name,gender,email,department_id,birth) VALUE (#{lastName},#{gender},#{email},{departmentId},#{birth})
+    </insert>
+    <select id="selectEmployee" resultType="com.honeypeng.entity.Employee">
+        SELECT * FROM  employee WHERE id=#{id}
+    </select>
+
+</mapper>

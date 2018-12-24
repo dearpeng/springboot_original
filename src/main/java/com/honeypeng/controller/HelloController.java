@@ -47,7 +47,7 @@ public class HelloController {
             session.setAttribute("username",username);
             return "redirect:/main.html";
         }else {
-            model.addAttribute("msg", "用户名或密码为空");
+            model.addAttribute("msg", "用户名或密码为空或错误");
             return "index.html";
         }
     }
