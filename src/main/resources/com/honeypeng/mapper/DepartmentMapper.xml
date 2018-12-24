@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.honeypeng.mapper.EmployeeMapper" >
-  <resultMap id="BaseResultMap" type="com.honeypeng.entity.Employee" >
+<mapper namespace="com.honeypeng.mapper.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.honeypeng.entity.Department" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="last_name" property="lastName" jdbcType="VARCHAR" />
-    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
-    <result column="gender" property="gender" jdbcType="INTEGER" />
-    <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
-    <result column="birth" property="birth" jdbcType="TIMESTAMP" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,15 +64,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, last_name, gender, email, department_id, birth
+    id, name
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honeypeng.entity.EmployeeExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honeypeng.entity.DepartmentExample" >
     select
     <if test="distinct" >
       distinct
     </if>
-    emp.id, last_name, gender, email, department_id, birth,dep.id as department_id,dep.name as department_name
-    from employee emp LEFT JOIN department dep ON emp.department_id = dep.id
+    <include refid="Base_Column_List" />
+    from department
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,94 +83,56 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from employee
+    from department
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from employee
+    delete from department
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.honeypeng.entity.EmployeeExample" >
-    delete from employee
+  <delete id="deleteByExample" parameterType="com.honeypeng.entity.DepartmentExample" >
+    delete from department
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.honeypeng.entity.Employee" >
+  <insert id="insert" parameterType="com.honeypeng.entity.Department" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into employee (last_name, gender, email, 
-      department_id, birth)
-    values (#{lastName,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, 
-      #{departmentId,jdbcType=INTEGER}, #{birth,jdbcType=TIMESTAMP})
+    insert into department (name)
+    values (#{name,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.honeypeng.entity.Employee" >
+  <insert id="insertSelective" parameterType="com.honeypeng.entity.Department" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into employee
+    insert into department
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="lastName != null" >
-        last_name,
-      </if>
-      <if test="gender != null" >
-        gender,
-      </if>
-      <if test="email != null" >
-        email,
-      </if>
-      <if test="departmentId != null" >
-        department_id,
-      </if>
-      <if test="birth != null" >
-        birth,
+      <if test="name != null" >
+        name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="lastName != null" >
-        #{lastName,jdbcType=VARCHAR},
-      </if>
-      <if test="gender != null" >
-        #{gender,jdbcType=INTEGER},
-      </if>
-      <if test="email != null" >
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="departmentId != null" >
-        #{departmentId,jdbcType=INTEGER},
-      </if>
-      <if test="birth != null" >
-        #{birth,jdbcType=TIMESTAMP},
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.honeypeng.entity.EmployeeExample" resultType="java.lang.Integer" >
-    select count(*) from employee
+  <select id="countByExample" parameterType="com.honeypeng.entity.DepartmentExample" resultType="java.lang.Integer" >
+    select count(*) from department
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update employee
+    update department
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.lastName != null" >
-        last_name = #{record.lastName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.gender != null" >
-        gender = #{record.gender,jdbcType=INTEGER},
-      </if>
-      <if test="record.email != null" >
-        email = #{record.email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.departmentId != null" >
-        department_id = #{record.departmentId,jdbcType=INTEGER},
-      </if>
-      <if test="record.birth != null" >
-        birth = #{record.birth,jdbcType=TIMESTAMP},
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -183,45 +140,25 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update employee
+    update department
     set id = #{record.id,jdbcType=INTEGER},
-      last_name = #{record.lastName,jdbcType=VARCHAR},
-      gender = #{record.gender,jdbcType=INTEGER},
-      email = #{record.email,jdbcType=VARCHAR},
-      department_id = #{record.departmentId,jdbcType=INTEGER},
-      birth = #{record.birth,jdbcType=TIMESTAMP}
+      name = #{record.name,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.honeypeng.entity.Employee" >
-    update employee
+  <update id="updateByPrimaryKeySelective" parameterType="com.honeypeng.entity.Department" >
+    update department
     <set >
-      <if test="lastName != null" >
-        last_name = #{lastName,jdbcType=VARCHAR},
-      </if>
-      <if test="gender != null" >
-        gender = #{gender,jdbcType=INTEGER},
-      </if>
-      <if test="email != null" >
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="departmentId != null" >
-        department_id = #{departmentId,jdbcType=INTEGER},
-      </if>
-      <if test="birth != null" >
-        birth = #{birth,jdbcType=TIMESTAMP},
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.honeypeng.entity.Employee" >
-    update employee
-    set last_name = #{lastName,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=INTEGER},
-      email = #{email,jdbcType=VARCHAR},
-      department_id = #{departmentId,jdbcType=INTEGER},
-      birth = #{birth,jdbcType=TIMESTAMP}
+  <update id="updateByPrimaryKey" parameterType="com.honeypeng.entity.Department" >
+    update department
+    set name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

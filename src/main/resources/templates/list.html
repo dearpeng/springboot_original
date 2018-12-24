@@ -71,7 +71,7 @@
 									<td th:text="${emp.lastName}"></td>
 									<td>[[${emp.email}]]</td>
 									<td th:text="${emp.gender}==0?'女':'男'"></td>
-									<td th:text="${emp.department.departmentName}"></td>
+									<td th:text="${emp.departmentName}"></td>
 									<td th:text="${#dates.format(emp.birth,'yyyy-MM-dd HH:mm')}"></td>
 									<td>
 										<a class="btn btn-sm btn-primary" th:href="@{/emp/}+${emp.id}">编辑</a>

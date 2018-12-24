@@ -1,37 +1,41 @@
 package com.honeypeng.entity;
 
 public class Department {
+    /**
+     * 部门id
+     */
+    private Integer id;
 
-	private Integer id;
-	private String departmentName;
+    /**
+     * 部门名称
+     */
+    private String name;
 
-	public Department() {
-	}
-	
-	public Department(int i, String string) {
-		this.id = i;
-		this.departmentName = string;
-	}
+    /**
+     * 获取部门id
+     */
+    public Integer getId() {
+        return id;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    /**
+     * 设置部门id
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    /**
+     * 获取部门名称
+     */
+    public String getName() {
+        return name;
+    }
 
-	public String getDepartmentName() {
-		return departmentName;
-	}
-
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
-	}
-
-	@Override
-	public String toString() {
-		return "Department [id=" + id + ", departmentName=" + departmentName + "]";
-	}
-	
+    /**
+     * 设置部门名称
+     */
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
 }

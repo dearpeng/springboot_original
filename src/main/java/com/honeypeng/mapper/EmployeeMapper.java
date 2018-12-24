@@ -1,10 +1,13 @@
 package com.honeypeng.mapper;
 
-import com.honeypeng.entity.Employee.Employee;
-import com.honeypeng.entity.Employee.EmployeeExample;
+import com.honeypeng.entity.Employee;
+import com.honeypeng.entity.EmployeeExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface EmployeeMapper {
     int countByExample(EmployeeExample example);
 

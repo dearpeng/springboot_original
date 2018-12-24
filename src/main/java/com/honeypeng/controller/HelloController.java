@@ -1,11 +1,5 @@
 package com.honeypeng.controller;
 
-import com.honeypeng.dao.DepartmentDao;
-import com.honeypeng.dao.EmployeeDao;
-import com.honeypeng.entity.Department;
-import com.honeypeng.entity.Employee;
-import org.apache.logging.log4j.message.ReusableMessage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;

@@ -1,16 +1,17 @@
 package com.honeypeng.controller;
 
-import com.honeypeng.dao.DepartmentDao;
-import com.honeypeng.dao.EmployeeDao;
 import com.honeypeng.entity.Department;
 import com.honeypeng.entity.Employee;
+import com.honeypeng.mapper.EmployeeMapper;
 import com.honeypeng.service.IEmployeeService;
+import com.honeypeng.service.impl.IDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by PengWX on 2018/12/7.
@@ -19,13 +20,10 @@ import java.util.Collection;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeDao employeeDao;
+    private IEmployeeService  employeeService;
 
     @Autowired
-    private DepartmentDao departmentDao;
-
-    @Autowired
-    private IEmployeeService employeeService;
+    private IDepartmentService departmentService;
 
     /**
      * 获取员工列表
@@ -34,7 +32,7 @@ public class EmployeeController {
      */
     @GetMapping("/emps")
     public String getAllEmps(Model model){
-        Collection<Employee> all = employeeDao.getAll();
+        Collection<Employee> all = employeeService.getAllEmployeeList();
         model.addAttribute("emps", all);
         return "list";
     }
@@ -46,7 +44,7 @@ public class EmployeeController {
      */
     @GetMapping("/emp")
     public String toAddPage(Model model){
-        Collection<Department> departments = departmentDao.getDepartments();
+        List<Department> departments = departmentService.getAllDepartmentList();
         model.addAttribute("depts", departments);
         return "add";
     }
@@ -58,7 +56,7 @@ public class EmployeeController {
      */
     @PostMapping("/emp")
     public String addEmp(Employee employee){
-        employeeDao.save(employee);
+        employeeService.saveEmployee(employee);
         //重定向到emps请求  /:表示当前地址
         return "redirect:/emps";
     }
@@ -70,9 +68,9 @@ public class EmployeeController {
      */
     @GetMapping("/emp/{id}")
     public String getEmp(@PathVariable("id") Integer id,Model model){
-        Collection<Department> departments = departmentDao.getDepartments();
+        Collection<Department> departments = departmentService.getAllDepartmentList();
         model.addAttribute("depts", departments);
-        Employee employee = employeeDao.get(id);
+        Employee employee = employeeService.selectEmployee(id);
         model.addAttribute("emp", employee);
         return "/add";
     }
@@ -84,7 +82,7 @@ public class EmployeeController {
      */
     @PutMapping("/emp")
     public String editEmp(Employee employee){
-        employeeDao.save(employee);
+        employeeService.saveEmployee(employee);
         return "redirect:/emps";
     }
 
@@ -95,7 +93,7 @@ public class EmployeeController {
      */
     @DeleteMapping("/emp/{id}")
     public String deleteEmp(@PathVariable("id")Integer id){
-        employeeDao.delete(id);
+        employeeService.deleteById(id);
         return "redirect:/emps";
     }
 
