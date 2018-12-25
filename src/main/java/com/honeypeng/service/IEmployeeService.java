@@ -1,6 +1,7 @@
 package com.honeypeng.service;
 
 import com.honeypeng.entity.Employee;
+import com.honeypeng.entity.EmployeeExample;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface IEmployeeService {
     Integer deleteById(Integer id);
 
     Integer updateEmployee(Employee employee);
+
+    List<Employee> selectByExample(EmployeeExample example);
 }

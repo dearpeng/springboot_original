@@ -2,7 +2,7 @@ package com.honeypeng;
 
 
 import com.honeypeng.bean.Person;
-import com.honeypeng.component.MultiThreadTest;
+import com.honeypeng.utils.MD5;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +11,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-import java.util.*;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 
@@ -49,7 +46,9 @@ public class SpringbootfirstApplicationTests {
     @Test
     public void testHello1() {
         System.out.println("--------------------------------------------------");
-        System.out.println(Objects.equals("111", null));
+        String s = UUID.randomUUID().toString();
+        System.out.println(s);
+        System.out.println(MD5.md5Hex("123456", s));
     }
 
 //    @Test

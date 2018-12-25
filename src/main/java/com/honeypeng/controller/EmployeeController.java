@@ -2,7 +2,6 @@ package com.honeypeng.controller;
 
 import com.honeypeng.entity.Department;
 import com.honeypeng.entity.Employee;
-import com.honeypeng.mapper.EmployeeMapper;
 import com.honeypeng.service.IEmployeeService;
 import com.honeypeng.service.impl.IDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;

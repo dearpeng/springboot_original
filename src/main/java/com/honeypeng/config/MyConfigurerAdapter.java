@@ -4,9 +4,8 @@ package com.honeypeng.config;
 import com.honeypeng.component.LoginHandlerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.servlet.config.annotation.*;
 
 import javax.imageio.spi.RegisterableService;
 
@@ -15,21 +14,11 @@ import javax.imageio.spi.RegisterableService;
  */
 @Configuration
 public class MyConfigurerAdapter extends WebMvcConfigurerAdapter {
-    /* *
-     * 将login请求隐射到index页面
-     * @author pengWX
-     * @date 2018/11/19 17:59
-     * @param @param registry:
-     * @return void
-     */
-    /*@Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/index").setViewName("index");
-    }*/
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("*").excludePathPatterns("/index","/","/user/login");
+        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/*").excludePathPatterns("/index","/index.html","/","/user/login","/signOut");
         super.addInterceptors(registry);
     }
 
@@ -43,16 +32,35 @@ public class MyConfigurerAdapter extends WebMvcConfigurerAdapter {
                 registry.addViewController("/").setViewName("index");
                 registry.addViewController("/index.html").setViewName("index");
                 registry.addViewController("/main.html").setViewName("dashboard");
-
             }
-           /* @Override
+            /*@Override
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("*").excludePathPatterns("/index","/","/user/login");
-//                super.addInterceptors(registry);
+                super.addInterceptors(registry);
             }*/
 
         };
 
         return adapter;
     }
+
+   /* @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static*//**").addResourceLocations("classpath:/static/");
+        super.addResourceHandlers(registry);
+    }*/
+
+    /* *
+     * 将login请求隐射到index页面
+     * @author pengWX
+     * @param @param registry:
+     * @return void
+     */
+    /*@Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("index");
+        registry.addViewController("/index.html").setViewName("index");
+        registry.addViewController("/main.html").setViewName("dashboard");
+    }*/
+
 }

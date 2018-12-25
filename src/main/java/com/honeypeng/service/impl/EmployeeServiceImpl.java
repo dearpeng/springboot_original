@@ -43,4 +43,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public Integer updateEmployee(Employee employee) {
         return employeeMapper.updateByPrimaryKey(employee);
     }
+
+    @Override
+    public List<Employee> selectByExample(EmployeeExample example) {
+        return employeeMapper.selectByExample(example);
+    }
 }

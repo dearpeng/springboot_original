@@ -1,8 +1,5 @@
 package com.honeypeng.entity;
 
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
 
 public class Employee {
@@ -31,14 +28,25 @@ public class Employee {
      */
     private Integer departmentId;
 
-
+    /**
+     * 部门名称
+     */
     private String departmentName;
 
     /**
      * 生日
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date birth;
+
+    /**
+     * 密码
+     */
+    private String password;
+
+    /**
+     * 盐
+     */
+    private String salt;
 
     /**
      * 获取
@@ -52,14 +60,6 @@ public class Employee {
      */
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
     }
 
     /**
@@ -119,6 +119,20 @@ public class Employee {
     }
 
     /**
+     * 获取部门名称
+     */
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    /**
+     * 设置部门名称
+     */
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName == null ? null : departmentName.trim();
+    }
+
+    /**
      * 获取生日
      */
     public Date getBirth() {
@@ -132,16 +146,31 @@ public class Employee {
         this.birth = birth;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", gender=" + gender +
-                ", departmentId=" + departmentId +
-                ", birth=" + birth +
-                '}';
+    /**
+     * 获取密码
+     */
+    public String getPassword() {
+        return password;
     }
 
+    /**
+     * 设置密码
+     */
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
+    }
+
+    /**
+     * 获取盐
+     */
+    public String getSalt() {
+        return salt;
+    }
+
+    /**
+     * 设置盐
+     */
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
+    }
 }

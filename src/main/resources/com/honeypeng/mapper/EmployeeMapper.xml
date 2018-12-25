@@ -4,11 +4,13 @@
   <resultMap id="BaseResultMap" type="com.honeypeng.entity.Employee" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="last_name" property="lastName" jdbcType="VARCHAR" />
-    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
     <result column="gender" property="gender" jdbcType="INTEGER" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
     <result column="birth" property="birth" jdbcType="TIMESTAMP" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,15 +71,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, last_name, gender, email, department_id, birth
+    id, last_name, gender, email, department_id, department_name, birth, password, salt
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honeypeng.entity.EmployeeExample" >
     select
     <if test="distinct" >
       distinct
     </if>
-    emp.id, last_name, gender, email, department_id, birth,dep.id as department_id,dep.name as department_name
-    from employee emp LEFT JOIN department dep ON emp.department_id = dep.id
+    <include refid="Base_Column_List" />
+    from employee
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -106,9 +108,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into employee (last_name, gender, email, 
-      department_id, birth)
+      department_id, department_name, birth, 
+      password, salt)
     values (#{lastName,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, 
-      #{departmentId,jdbcType=INTEGER}, #{birth,jdbcType=TIMESTAMP})
+      #{departmentId,jdbcType=INTEGER}, #{departmentName,jdbcType=VARCHAR}, #{birth,jdbcType=TIMESTAMP}, 
+      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.honeypeng.entity.Employee" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -128,8 +132,17 @@
       <if test="departmentId != null" >
         department_id,
       </if>
+      <if test="departmentName != null" >
+        department_name,
+      </if>
       <if test="birth != null" >
         birth,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="salt != null" >
+        salt,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -145,8 +158,17 @@
       <if test="departmentId != null" >
         #{departmentId,jdbcType=INTEGER},
       </if>
+      <if test="departmentName != null" >
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
       <if test="birth != null" >
         #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -174,8 +196,17 @@
       <if test="record.departmentId != null" >
         department_id = #{record.departmentId,jdbcType=INTEGER},
       </if>
+      <if test="record.departmentName != null" >
+        department_name = #{record.departmentName,jdbcType=VARCHAR},
+      </if>
       <if test="record.birth != null" >
         birth = #{record.birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null" >
+        salt = #{record.salt,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -189,7 +220,10 @@
       gender = #{record.gender,jdbcType=INTEGER},
       email = #{record.email,jdbcType=VARCHAR},
       department_id = #{record.departmentId,jdbcType=INTEGER},
-      birth = #{record.birth,jdbcType=TIMESTAMP}
+      department_name = #{record.departmentName,jdbcType=VARCHAR},
+      birth = #{record.birth,jdbcType=TIMESTAMP},
+      password = #{record.password,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -209,8 +243,17 @@
       <if test="departmentId != null" >
         department_id = #{departmentId,jdbcType=INTEGER},
       </if>
+      <if test="departmentName != null" >
+        department_name = #{departmentName,jdbcType=VARCHAR},
+      </if>
       <if test="birth != null" >
         birth = #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -221,7 +264,10 @@
       gender = #{gender,jdbcType=INTEGER},
       email = #{email,jdbcType=VARCHAR},
       department_id = #{departmentId,jdbcType=INTEGER},
-      birth = #{birth,jdbcType=TIMESTAMP}
+      department_name = #{departmentName,jdbcType=VARCHAR},
+      birth = #{birth,jdbcType=TIMESTAMP},
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
