@@ -2,6 +2,7 @@ package com.honeypeng.controller;
 
 import com.honeypeng.entity.Employee;
 import com.honeypeng.entity.EmployeeExample;
+import com.honeypeng.exception.UserNotExistExcception;
 import com.honeypeng.service.IEmployeeService;
 import com.honeypeng.utils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,9 @@ public class HelloController {
     public String login(@RequestParam("username") String username,@RequestParam("password") String password, Model model,HttpSession session){
 
         if (!StringUtils.isEmpty(username) && !StringUtils.isEmpty(password)){
+            if (Objects.equals(username,"aaa")){
+                throw new UserNotExistExcception();
+            }
             EmployeeExample example = new EmployeeExample();
             example.or().andLastNameEqualTo(username);
             List<Employee> emps = employeeService.selectByExample(example);
