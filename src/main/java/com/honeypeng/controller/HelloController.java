@@ -31,7 +31,10 @@ public class HelloController {
 
     @RequestMapping("/helloTest")
     @ResponseBody
-    public String helloTest() {
+    public String helloTest(@RequestParam("user") String user) throws Exception {
+        if (Objects.equals(user,"aaa")){
+            throw new UserNotExistExcception();
+        }
         return "SynchronizedTest quick springboot";
     }
 
@@ -46,9 +49,7 @@ public class HelloController {
     public String login(@RequestParam("username") String username,@RequestParam("password") String password, Model model,HttpSession session){
 
         if (!StringUtils.isEmpty(username) && !StringUtils.isEmpty(password)){
-            if (Objects.equals(username,"aaa")){
-                throw new UserNotExistExcception();
-            }
+
             EmployeeExample example = new EmployeeExample();
             example.or().andLastNameEqualTo(username);
             List<Employee> emps = employeeService.selectByExample(example);
