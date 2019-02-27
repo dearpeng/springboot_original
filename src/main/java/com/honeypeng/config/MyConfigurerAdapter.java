@@ -16,11 +16,11 @@ import javax.imageio.spi.RegisterableService;
 public class MyConfigurerAdapter extends WebMvcConfigurerAdapter {
 
 
-   /* @Override
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("*//*").excludePathPatterns("/index","/index.html","/","/user/login","/signOut");
+        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("").excludePathPatterns("/index","/index.html","/","/user/login","/signOut");
         super.addInterceptors(registry);
-    }*/
+    }
 
     //所有的WebMvcConfigurerAdapter组件都会一起起作用，所以自己定义一个adapter
     @Bean //将组件注册在容器
@@ -56,11 +56,11 @@ public class MyConfigurerAdapter extends WebMvcConfigurerAdapter {
      * @param @param registry:
      * @return void
      */
-    /*@Override
+    @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index.html").setViewName("index");
         registry.addViewController("/main.html").setViewName("dashboard");
-    }*/
+    }
 
 }
