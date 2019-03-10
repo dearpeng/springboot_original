@@ -31,7 +31,8 @@ public class HelloController {
 
     @RequestMapping("/helloTest")
     @ResponseBody
-    public String helloTest(@RequestParam("user") String user) throws Exception {
+    public String helloTest( String user) throws Exception
+    {
         if (Objects.equals(user,"aaa")){
             throw new UserNotExistExcception();
         }
@@ -58,7 +59,14 @@ public class HelloController {
                 return "index.html";
             }else {
                 Employee emp = emps.get(0);
-                String md5Hex = MD5.md5Hex(password, emp.getSalt());
+                if (Objects.isNull(emp)){
+                    model.addAttribute("msg", "用户名或密码为空或错误");
+                    return "index.html";
+                }else{
+                    session.setAttribute("user",emp);
+                    return "redirect:/main.html";
+                }
+                /*String md5Hex = MD5.md5Hex(password, emp.getSalt());
                 if (Objects.equals(md5Hex, emp.getPassword())) {
                     //防止表单重复提交,采用重定向
                     session.setAttribute("user",emp);
@@ -66,7 +74,7 @@ public class HelloController {
                 }else {
                     model.addAttribute("msg", "用户名或密码为空或错误");
                     return "index.html";
-                }
+                }*/
             }
         }else {
             model.addAttribute("msg", "用户名或密码为空");
