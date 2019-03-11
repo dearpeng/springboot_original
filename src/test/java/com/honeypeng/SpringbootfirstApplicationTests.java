@@ -9,11 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -27,6 +34,10 @@ public class SpringbootfirstApplicationTests {
     @Autowired
     private ApplicationContext context;
 
+
+    @Autowired
+    private HttpServletRequest request;
+
 //    @Autowired
 //    private ThreadPoolExecutor taskExecutor;
 
@@ -35,6 +46,283 @@ public class SpringbootfirstApplicationTests {
 
 	@Autowired
 	private SpringBootActivemqProducer springBootActivemqProducer;*/
+
+
+    @Test
+    public void downloadFile() {
+        ServletContext ctx = request.getServletContext();
+        String path = ctx.getRealPath("/uploadfile");
+        String fileName = UUID.randomUUID().toString();
+//        downloadImage("http://img.zahuiyin.com/zahy/cls/secondhand_car/2019/1/7/92aa5bca-abef-4307-8c5a-c601126858c1.pdf", path);
+        downLoadFromUrl("http://img.zahuiyin.com/zahy/cls/secondhand_car/2019/1/7/92aa5bca-abef-4307-8c5a-c601126858c1.pdf", path);
+
+
+//        delAllFile(path);
+//        download("http://img.zahuiyin.com/zahy/cls/secondhand_car/2019/1/7/92aa5bca-abef-4307-8c5a-c601126858c1.pdf", path,fileName);
+    }
+
+    /**
+     * 删除单个文件
+     *
+     * @param fileName 被删除文件的文件名
+     * @return 单个文件删除成功返回true, 否则返回false
+     */
+    public static boolean deleteFile(String fileName) {
+        File file = new File(fileName);
+        if (file.isFile() && file.exists()) {
+            file.delete();
+            System.out.println("删除单个文件" + fileName + "成功！");
+            return true;
+        } else {
+            System.out.println("删除单个文件" + fileName + "失败！");
+            return false;
+        }
+    }
+
+
+    // 删除指定文件夹下所有文件
+    // param path 文件夹完整绝对路径
+    public static boolean delAllFile(String path) {
+        boolean flag = false;
+        File file = new File(path);
+        if (!file.exists()) {
+            return flag;
+        }
+        if (!file.isDirectory()) {
+            return flag;
+        }
+        String[] tempList = file.list();
+        File temp = null;
+        for (int i = 0; i < tempList.length; i++) {
+            if (path.endsWith(File.separator)) {
+                temp = new File(path + tempList[i]);
+            } else {
+                temp = new File(path + File.separator + tempList[i]);
+            }
+            if (temp.isFile()) {
+                temp.delete();
+            }
+            if (temp.isDirectory()) {
+                delAllFile(path + "/" + tempList[i]);// 先删除文件夹里面的文件
+//                delFolder(path + "/" + tempList[i]);// 再删除空文件夹
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+
+    public static void downloadImage(String Imageurl, String path) {
+        try {
+            URL url = new URL(Imageurl);
+            //打开网络输入流
+            DataInputStream dis = new DataInputStream(url.openStream());
+            String fileName = UUID.randomUUID().toString();
+            String newImageName = path + "\\" + fileName + ".pdf";
+            //建立一个新的文件
+            FileOutputStream fos = new FileOutputStream(new File(newImageName));
+            byte[] buffer = new byte[1024];
+            int length;
+            //开始填充数据
+            while ((length = dis.read(buffer)) > 0) {
+                fos.write(buffer, 0, length);
+            }
+            dis.close();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void download(String urlString, String savePath, String filename) {
+        InputStream is = null;
+        OutputStream os = null;
+        HttpURLConnection con = null;
+        try {
+            // 构造URL
+            URL url = new URL(urlString);
+            // 打开连接
+            con = (HttpURLConnection) url.openConnection();
+            //设置请求超时为5s
+            con.setConnectTimeout(5 * 1000);
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.setRequestMethod("GET");
+            con.setRequestProperty("connection", "keep-alive");
+            con.setReadTimeout(30000);
+            con.setUseCaches(false);
+            con.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
+            con.connect();
+            is = con.getInputStream();
+
+            // 1K的数据缓冲
+            byte[] bs = new byte[1048576];
+            // 读取到的数据长度
+            int len;
+            // 输出的文件流
+            File sf = new File(savePath);
+            if (!sf.exists()) {
+                sf.mkdirs();
+            }
+            os = new FileOutputStream(sf.getPath() + "\\" + filename);
+            // 开始读取
+            while ((len = is.read(bs)) != -1) {
+                os.write(bs, 0, len);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // 完毕，关闭所有链接
+            if (Objects.nonNull(os)) {
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (Objects.nonNull(is)) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                con.disconnect();
+            }
+
+        }
+
+    }
+
+
+    /**
+     * 从网络Url中下载文件
+     *
+     * @param urlStr
+     * @param savePath
+     * @throws IOException
+     */
+    public static void downLoadFromUrl(String urlStr, String savePath) {
+        try {
+            URL url = new URL(urlStr);
+            String fileName = UUID.randomUUID().toString();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            //设置超时间为3秒
+            conn.setConnectTimeout(3 * 1000);
+            //防止屏蔽程序抓取而返回403错误
+            conn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
+
+            //得到输入流
+            InputStream inputStream = conn.getInputStream();
+            //获取自己数组
+            byte[] getData = readInputStream(inputStream);
+
+            //文件保存位置
+            File saveDir = new File(savePath);
+            if (!saveDir.exists()) {
+                saveDir.mkdir();
+            }
+            File file = new File(saveDir + File.separator + fileName + ".pdf");
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(getData);
+            if (fos != null) {
+                fos.close();
+            }
+            if (inputStream != null) {
+                inputStream.close();
+            }
+
+
+            System.out.println("info:" + url + " download success");
+            try {
+                java.lang.Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            deleteFile(saveDir + File.separator + fileName + ".pdf");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    /**
+     * 从输入流中获取字节数组
+     *
+     * @param inputStream
+     * @return
+     * @throws IOException
+     */
+    public static byte[] readInputStream(InputStream inputStream) throws IOException {
+        byte[] buffer = new byte[1024];
+        int len = 0;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        while ((len = inputStream.read(buffer)) != -1) {
+            bos.write(buffer, 0, len);
+        }
+        bos.close();
+        return bos.toByteArray();
+    }
+
+
+    public static File saveUrlAs(String url, String filePath, String method) {
+        //System.out.println("fileName---->"+filePath);
+        //创建不同的文件夹目录
+        File file = new File(filePath);
+        //判断文件夹是否存在
+        if (!file.exists()) {
+            //如果文件夹不存在，则创建新的的文件夹
+            file.mkdirs();
+        }
+        FileOutputStream fileOut = null;
+        HttpURLConnection conn = null;
+        InputStream inputStream = null;
+        try {
+            // 建立链接
+            URL httpUrl = new URL(url);
+            conn = (HttpURLConnection) httpUrl.openConnection();
+            //以Post方式提交表单，默认get方式
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            // post方式不能使用缓存
+            conn.setUseCaches(false);
+            //连接指定的资源
+            conn.connect();
+            //获取网络输入流
+            inputStream = conn.getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(inputStream);
+            //判断文件的保存路径后面是否以/结尾
+            if (!filePath.endsWith("/")) {
+
+                filePath += "/";
+
+            }
+            //写入到文件（注意文件保存路径的后面一定要加上文件的名称）
+            String uuid = UUID.randomUUID().toString();
+            fileOut = new FileOutputStream(filePath + uuid + ".pdf");
+            BufferedOutputStream bos = new BufferedOutputStream(fileOut);
+
+            byte[] buf = new byte[4096];
+            int length = bis.read(buf);
+            //保存文件
+            while (length != -1) {
+                bos.write(buf, 0, length);
+                length = bis.read(buf);
+            }
+            bos.close();
+            bis.close();
+            conn.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("抛出异常！！");
+        }
+
+        return file;
+
+    }
+
 
     @Test
     public void testHello() {
@@ -125,10 +413,8 @@ public class SpringbootfirstApplicationTests {
         TimeUnit.SECONDS.sleep(2);
         sleepThread.interrupt();
         busyThread.interrupt();
-        System.out.println("SleepThread interrupted is "
-                + sleepThread.isInterrupted());
-        System.out.println("BusyThread interrupted is "
-                + busyThread.isInterrupted());
+        System.out.println("SleepThread interrupted is " + sleepThread.isInterrupted());
+        System.out.println("BusyThread interrupted is " + busyThread.isInterrupted());
         // 防止sleepThread和busyThread立刻退出
         TimeUnit.SECONDS.sleep(2);
     }
