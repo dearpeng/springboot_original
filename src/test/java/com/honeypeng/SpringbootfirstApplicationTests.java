@@ -50,12 +50,13 @@ public class SpringbootfirstApplicationTests {
 
     @Test
     public void downloadFile() {
-        ServletContext ctx = request.getServletContext();
+       /* ServletContext ctx = request.getServletContext();
         String path = ctx.getRealPath("/uploadfile");
-        String fileName = UUID.randomUUID().toString();
+        String fileName = UUID.randomUUID().toString();*/
 //        downloadImage("http://img.zahuiyin.com/zahy/cls/secondhand_car/2019/1/7/92aa5bca-abef-4307-8c5a-c601126858c1.pdf", path);
-        downLoadFromUrl("http://img.zahuiyin.com/zahy/cls/secondhand_car/2019/1/7/92aa5bca-abef-4307-8c5a-c601126858c1.pdf", path);
-
+//        downLoadFromUrl("http://img.zahuiyin.com/zahy/cls/secondhand_car/2019/1/7/92aa5bca-abef-4307-8c5a-c601126858c1.pdf", path);
+        Integer integer = new Integer(1);
+        System.out.println(Objects.equals(integer,1));
 
 //        delAllFile(path);
 //        download("http://img.zahuiyin.com/zahy/cls/secondhand_car/2019/1/7/92aa5bca-abef-4307-8c5a-c601126858c1.pdf", path,fileName);
@@ -204,6 +205,8 @@ public class SpringbootfirstApplicationTests {
      * @throws IOException
      */
     public static void downLoadFromUrl(String urlStr, String savePath) {
+        FileOutputStream fos = null;
+        InputStream inputStream = null;
         try {
             URL url = new URL(urlStr);
             String fileName = UUID.randomUUID().toString();
@@ -214,7 +217,7 @@ public class SpringbootfirstApplicationTests {
             conn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
 
             //得到输入流
-            InputStream inputStream = conn.getInputStream();
+            inputStream = conn.getInputStream();
             //获取自己数组
             byte[] getData = readInputStream(inputStream);
 
@@ -224,15 +227,8 @@ public class SpringbootfirstApplicationTests {
                 saveDir.mkdir();
             }
             File file = new File(saveDir + File.separator + fileName + ".pdf");
-            FileOutputStream fos = new FileOutputStream(file);
+            fos = new FileOutputStream(file);
             fos.write(getData);
-            if (fos != null) {
-                fos.close();
-            }
-            if (inputStream != null) {
-                inputStream.close();
-            }
-
 
             System.out.println("info:" + url + " download success");
             try {
@@ -243,6 +239,21 @@ public class SpringbootfirstApplicationTests {
             deleteFile(saveDir + File.separator + fileName + ".pdf");
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
     }

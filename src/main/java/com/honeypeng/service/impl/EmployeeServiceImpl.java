@@ -6,6 +6,7 @@ import com.honeypeng.entity.EmployeeExample;
 import com.honeypeng.mapper.EmployeeMapper;
 import com.honeypeng.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Autowired
     private EmployeeMapper employeeMapper;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     public Integer saveEmployee(Employee employee) {
