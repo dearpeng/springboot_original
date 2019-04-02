@@ -21,7 +21,7 @@ import java.time.Duration;
 import java.util.Arrays;
 
 /**
- * redis配置类
+ * redis配置类,spring启动完会加载这个配置,factory入参对象是从application.yml里面配置的
  * Created by PengWX on 2019/3/29.
  * @author zcc ON 2018/3/19
  **/
@@ -61,9 +61,9 @@ public class RedisConfig extends CachingConfigurerSupport {
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         jackson2JsonRedisSerializer.setObjectMapper(om);
 
-        // 配置序列化（解决乱码的问题）,过期时间30秒
+        // 配置序列化（解决乱码的问题）,过期时间30秒w
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofSeconds(30))
+                .entryTtl(Duration.ofSeconds(0))
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
                 .disableCachingNullValues();
@@ -75,6 +75,10 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
 
 
+    /**
+     * 运行到加了缓存注解的方法的时候才会执行
+     * @return
+     */
     @Bean
     @Override
     public KeyGenerator keyGenerator() {

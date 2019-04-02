@@ -39,13 +39,17 @@ SPRING:
         min-idle: 0
     lettuce:
       pool:
-        max-active: 8
-        max-idle: 8
+        max-active: 9
+        max-idle: 9
         max-wait: -1ms
-        min-idle: 0
+        min-idle: 1
       shutdown-timeout: 100ms
     password: '123456'
     port: 6379
+  cache:
+    type: redis
+    redis:
+      time-to-live: 2000
 
 #PERSON:
 #  NAME: ZHANGSAN
