@@ -6,6 +6,7 @@ import com.honeypeng.exception.UserNotExistExcception;
 import com.honeypeng.service.IEmployeeService;
 import com.honeypeng.utils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
@@ -13,6 +14,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -29,6 +31,11 @@ public class HelloController {
     @Autowired
     private IEmployeeService employeeService;
 
+
+    @Autowired
+    private RedisTemplate<String, Object>  redisTemplate;
+
+
     @RequestMapping("/helloTest")
     @ResponseBody
     public String helloTest( String user) throws Exception
@@ -39,6 +46,15 @@ public class HelloController {
         return "SynchronizedTest quick springboot";
     }
 
+    @RequestMapping("testRedis")
+    @ResponseBody
+    public String restRedis(){
+        Employee employee = new Employee();
+        employee.setLastName("123456");
+        employee.setEmail("123456@qq.com");
+        redisTemplate.opsForValue().set("user111",employee);
+        return "存放数据";
+    }
     @RequestMapping("/toViewData")
     public String toViewData(Map<String, Object> map) {
         map.put("hello", "<h1>hello View Data</h1>");

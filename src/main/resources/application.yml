@@ -44,7 +44,7 @@ SPRING:
         max-wait: -1ms
         min-idle: 0
       shutdown-timeout: 100ms
-    password: ''
+    password: '123456'
     port: 6379
 
 #PERSON:

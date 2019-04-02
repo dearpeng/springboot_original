@@ -6,6 +6,7 @@ import com.honeypeng.entity.EmployeeExample;
 import com.honeypeng.mapper.EmployeeMapper;
 import com.honeypeng.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +30,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
+    @Cacheable(value = "employeeService")
     public Employee selectEmployee(Integer id) {
         return employeeMapper.selectByPrimaryKey(id);
     }
 
     @Override
+    @Cacheable(value = "employeeService")
     public List<Employee> getAllEmployeeList() {
         return employeeMapper.selectByExample(new EmployeeExample());
     }
@@ -49,6 +52,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
+    @Cacheable(value = "employeeService")
     public List<Employee> selectByExample(EmployeeExample example) {
         return employeeMapper.selectByExample(example);
     }
