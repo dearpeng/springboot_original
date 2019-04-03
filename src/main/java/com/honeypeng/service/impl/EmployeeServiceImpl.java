@@ -36,7 +36,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    @Cacheable(value = "employeeService")
     public List<Employee> getAllEmployeeList() {
         return employeeMapper.selectByExample(new EmployeeExample());
     }

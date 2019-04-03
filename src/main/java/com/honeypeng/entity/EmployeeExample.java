@@ -1,9 +1,11 @@
 package com.honeypeng.entity;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+@Data
 public class EmployeeExample {
     protected String orderByClause;
 

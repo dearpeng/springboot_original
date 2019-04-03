@@ -1,6 +1,7 @@
 package com.honeypeng.config;
 
 
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -91,7 +92,7 @@ public class RedisConfig extends CachingConfigurerSupport {
             sb.append(":");
             sb.append(method.getName());
             for (Object obj : params) {
-                sb.append(":" + String.valueOf(obj));
+                sb.append("+" + JSON.toJSONString(obj));
             }
             String rsToUse = String.valueOf(sb);
             return rsToUse;

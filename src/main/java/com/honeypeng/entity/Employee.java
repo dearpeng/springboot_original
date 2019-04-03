@@ -1,6 +1,9 @@
 package com.honeypeng.entity;
 
+import lombok.Data;
+
 import java.util.Date;
+
 
 public class Employee {
     /**
