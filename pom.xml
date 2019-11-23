@@ -33,7 +33,26 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <!--排除默认的tomcat容器,测试使用jetty容器-->
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
+        <!--引用jetty servlet容器-->
+        <!--<dependency>
+            <artifactId>spring-boot-starter-jetty</artifactId>
+            <groupId>org.springframework.boot</groupId>
+        </dependency>-->
+
+        <!--引用undertow servlet容器-->
+        <dependency>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+            <groupId>org.springframework.boot</groupId>
+        </dependency>
+
         <!-- Spring Boot Redis依赖 -->
         <!-- 注意：1.5版本的依赖和2.0的依赖不一样，注意看哦 1.5我记得名字里面应该没有“data”, 2.0必须是“spring-boot-starter-data-redis” 这个才行-->
         <dependency>
@@ -64,12 +83,12 @@
             <version>1.2.56</version>
         </dependency>
 
-
+<!--
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>compile</scope>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -78,11 +97,11 @@
 
 
         <!-- 部署到外带的tomcat,移除tomcat之后会报错，加入下面的依赖 -->
-        <dependency>
+      <!--  <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
-        </dependency>
+        </dependency>-->
 
 
         <!--数据库-->

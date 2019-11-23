@@ -21,6 +21,7 @@ public class MyServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setCharacterEncoding("gbk");
         resp.getWriter().write("自定义servlet");
     }
 }
