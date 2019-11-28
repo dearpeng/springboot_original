@@ -2,12 +2,18 @@ package com.honeypeng;
 
 
 import com.honeypeng.bean.Person;
+import com.honeypeng.config.AppConfig;
+import com.honeypeng.config.MyConfig;
+import com.honeypeng.service.impl.EmployeeServiceImpl;
 import com.honeypeng.utils.MD5;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
@@ -38,6 +44,13 @@ public class SpringbootfirstApplicationTests {
     @Autowired
     private HttpServletRequest request;
 
+    @Test
+    public void testInnit() {
+//        new ClassPathXmlApplicationContext("spring.xml");
+        AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(MyConfig.class);
+        System.out.println(annotationConfigApplicationContext.getBean(EmployeeServiceImpl.class));
+    }
+
 //    @Autowired
 //    private ThreadPoolExecutor taskExecutor;
 
@@ -56,7 +69,7 @@ public class SpringbootfirstApplicationTests {
 //        downloadImage("http://img.zahuiyin.com/zahy/cls/secondhand_car/2019/1/7/92aa5bca-abef-4307-8c5a-c601126858c1.pdf", path);
 //        downLoadFromUrl("http://img.zahuiyin.com/zahy/cls/secondhand_car/2019/1/7/92aa5bca-abef-4307-8c5a-c601126858c1.pdf", path);
         Integer integer = new Integer(1);
-        System.out.println(Objects.equals(integer,1));
+        System.out.println(Objects.equals(integer, 1));
 
 //        delAllFile(path);
 //        download("http://img.zahuiyin.com/zahy/cls/secondhand_car/2019/1/7/92aa5bca-abef-4307-8c5a-c601126858c1.pdf", path,fileName);

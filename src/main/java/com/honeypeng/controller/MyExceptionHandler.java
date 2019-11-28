@@ -38,10 +38,15 @@ public class MyExceptionHandler {
     @ExceptionHandler(UserNotExistExcception.class)
     public String handlerException(Exception e, HttpServletRequest request){
         Map<String, Object> map = new HashMap<>();
+        /**
+         * Integer statusCode = (Integer) request
+         * 				.getAttribute("javax.servlet.error.status_code");
+         */
         request.setAttribute("javax.servlet.error.status_code", 500);
         map.put("code", "用户在哪里啊");
         map.put("message", e.getMessage());
         request.setAttribute("ext",map);
+        //转发给basicErrorController,它会帮助我们如果是浏览器展示的是错误页面,如果是postman返回的是json数据
         return "forward:/error";
     }
 }

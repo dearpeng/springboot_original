@@ -1,17 +1,14 @@
-package com.honeypeng.activemq;/*
-package com.activemq;
-
-import javax.jms.*;
+package com.honeypeng.activemq;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-*/
+import javax.jms.*;
+
 /**
  * Created by 08754 on 2018/11/2.
- *//*
+ */
 
 public class ActiveMqTopicComsumer {
-    */
 /*public static void main(String[] args) {
         ConnectionFactory connectionFactory; // 连接工厂，用来生产Connection
         Connection connection = null; // 连接
@@ -32,7 +29,7 @@ public class ActiveMqTopicComsumer {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    }*//*
+    }*/
 
 
 
@@ -41,11 +38,23 @@ public class ActiveMqTopicComsumer {
         Connection connection = factory.createConnection();
         connection.start();
 
-        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
         Topic topic = session.createTopic("FirstTopic111");
 
         MessageConsumer consumer = session.createConsumer(topic);
-        consumer.setMessageListener(new MessageListener() {
+        // 模拟接收消息
+        while (true) {
+            TextMessage textMessage = (TextMessage) consumer.receive(10000);
+            if (null != textMessage) {
+                System.out.println("收到消息： " + textMessage);
+            } else {
+                break;
+            }
+        }
+        // 提交
+        session.commit();
+        /*consumer.setMessageListener(new MessageListener() {
+            @Override
             public void onMessage(Message message) {
                 TextMessage tm = (TextMessage) message;
                 try {
@@ -54,10 +63,9 @@ public class ActiveMqTopicComsumer {
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
 //      session.close();
 //      connection.stop();
 //      connection.close();
     }
 }
-*/

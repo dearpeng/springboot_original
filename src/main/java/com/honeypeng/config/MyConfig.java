@@ -3,7 +3,12 @@ package com.honeypeng.config;
 import com.honeypeng.component.MyLocalResolver;
 import com.honeypeng.service.IHelloService;
 import com.honeypeng.service.impl.HelloserviceImpl;
+import com.sun.org.apache.bcel.internal.util.ClassPath;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.web.server.ConfigurableWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.config.SimpleJmsListenerContainerFactory;
@@ -11,6 +16,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.LocaleResolver;
 
 import javax.jms.ConnectionFactory;
+import javax.xml.stream.Location;
 import java.util.Locale;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -18,6 +24,8 @@ import java.util.concurrent.ThreadPoolExecutor;
  * Created by 08754 on 2018/9/19.
  */
 @Configuration
+@ComponentScan("com.honeypeng")
+@MapperScan("com.honeypeng.mapper")
 public class MyConfig {
 
     @Bean

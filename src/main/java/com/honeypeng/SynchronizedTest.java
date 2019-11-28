@@ -6,9 +6,11 @@
 package com.honeypeng;
 
 
+import com.honeypeng.bean.L;
 import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
+import org.openjdk.jol.info.ClassLayout;
 
 public class SynchronizedTest {
 
@@ -26,7 +28,16 @@ public class SynchronizedTest {
     }
 
     public static void main(String[] args) {
-        //方式一
+        L l = new L();
+        System.out.println("start");
+        System.out.println(ClassLayout.parseInstance(l).toPrintable());
+        synchronized (l) {
+            System.out.println("locked");
+        }
+        System.out.println("end");
+
+    }
+    //方式一
        /* //一个数学表达式
         JEP jep = new JEP();
         //给变量赋值
@@ -41,18 +52,17 @@ public class SynchronizedTest {
         } catch (Exception e) {
             System.out.println("An error occured: " + e.getMessage());
         }*/
-       //方式二
-        try {
+    //方式二
+        /*try {
             String exp = "((a+b)*(c+b))/(c+a)/b";
             JEP jep = new JEP();
             jep.addVariable("a", 16);
-            jep.addVariable("b", 5);
+            jep.addVariable("b", 11);
             jep.addVariable("c", 66);
             Node parse = jep.parse(exp);
             Object evaluate = jep.evaluate(parse);
             System.out.println(evaluate);
         } catch (ParseException e) {
             e.printStackTrace();
-        }
-    }
+        }*/
 }

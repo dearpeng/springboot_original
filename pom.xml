@@ -34,12 +34,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <!--排除默认的tomcat容器,测试使用jetty容器-->
-            <exclusions>
+           <!-- <exclusions>
                 <exclusion>
                     <artifactId>spring-boot-starter-tomcat</artifactId>
                     <groupId>org.springframework.boot</groupId>
                 </exclusion>
-            </exclusions>
+            </exclusions>-->
         </dependency>
         <!--引用jetty servlet容器-->
         <!--<dependency>
@@ -48,10 +48,10 @@
         </dependency>-->
 
         <!--引用undertow servlet容器-->
-        <dependency>
+       <!-- <dependency>
             <artifactId>spring-boot-starter-undertow</artifactId>
             <groupId>org.springframework.boot</groupId>
-        </dependency>
+        </dependency>-->
 
         <!-- Spring Boot Redis依赖 -->
         <!-- 注意：1.5版本的依赖和2.0的依赖不一样，注意看哦 1.5我记得名字里面应该没有“data”, 2.0必须是“spring-boot-starter-data-redis” 这个才行-->
@@ -148,6 +148,15 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-activemq</artifactId>
+        </dependency>
+
+
+        <!--查看对象结构-->
+        <!-- https://mvnrepository.com/artifact/org.openjdk.jol/jol-core -->
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.9</version>
         </dependency>
 
 

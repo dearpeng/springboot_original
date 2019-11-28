@@ -22,12 +22,10 @@ public class ActivemqComsumer {
     public String receiveMessage(String message) {
         System.out.println("接受到: <" + message + ">");
         return "消费生产者的消息完成,返回";
-
     }
 
 
     public static void main(String[] args) throws JMSException {
-
         //1.建立ConnectionFactory工厂对象，需要填入用户名、密码以及ActiveMQ地址，默认端口为tcp://localhost:61616
         ConnectionFactory factory = new ActiveMQConnectionFactory("admin","admin",
                 "tcp://localhost:61616");
