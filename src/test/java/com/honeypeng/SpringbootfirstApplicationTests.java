@@ -21,11 +21,13 @@ import org.springframework.web.context.WebApplicationContext;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -40,6 +42,9 @@ public class SpringbootfirstApplicationTests {
     @Autowired
     private ApplicationContext context;
 
+    @Autowired
+    private DataSource dataSource;
+
 
     @Autowired
     private HttpServletRequest request;
@@ -49,6 +54,13 @@ public class SpringbootfirstApplicationTests {
 //        new ClassPathXmlApplicationContext("spring.xml");
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(MyConfig.class);
         System.out.println(annotationConfigApplicationContext.getBean(EmployeeServiceImpl.class));
+    }
+
+    @Test
+    public void testDataSource() throws SQLException {
+        System.out.println(dataSource);
+        System.out.println("=========================");
+        System.out.println(dataSource.getConnection());
     }
 
 //    @Autowired
