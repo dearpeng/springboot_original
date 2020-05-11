@@ -34,7 +34,8 @@ public class EmployeeController {
      * @return
      */
     @GetMapping("/emps")
-    public String getAllEmps(Model model){
+    public String getAllEmps(Model model) throws Exception{
+//        int a = 1/0;
         Collection<Employee> all = employeeService.getAllEmployeeList();
         model.addAttribute("emps", all);
         return "list";

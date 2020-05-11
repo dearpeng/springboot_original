@@ -33,14 +33,13 @@ public class HelloController {
 
 
     @Autowired
-    private RedisTemplate<String, Object>  redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
 
     @RequestMapping("/helloTest")
     @ResponseBody
-    public String helloTest( String user) throws Exception
-    {
-        if (Objects.equals(user,"aaa")){
+    public String helloTest(String user) throws Exception {
+        if (Objects.equals(user, "aaa")) {
             throw new UserNotExistExcception();
         }
         return "SynchronizedTest quick springboot";
@@ -48,13 +47,15 @@ public class HelloController {
 
     @RequestMapping("testRedis")
     @ResponseBody
-    public String restRedis(){
+    public String restRedis() {
+        int i = 1 / 0;
         Employee employee = new Employee();
         employee.setLastName("123456");
         employee.setEmail("123456@qq.com");
         redisTemplate.opsForValue().set("user111",employee);
         return "存放数据";
     }
+
     @RequestMapping("/toViewData")
     public String toViewData(Map<String, Object> map) {
         map.put("hello", "<h1>hello View Data</h1>");
@@ -62,10 +63,10 @@ public class HelloController {
         return "/hello";
     }
 
-    @PostMapping(value ="/user/login")
-    public String login(@RequestParam("username") String username,@RequestParam("password") String password, Model model,HttpSession session){
+    @PostMapping(value = "/user/login")
+    public String login(@RequestParam("username") String username, @RequestParam("password") String password, Model model, HttpSession session) {
 
-        if (!StringUtils.isEmpty(username) && !StringUtils.isEmpty(password)){
+        if (!StringUtils.isEmpty(username) && !StringUtils.isEmpty(password)) {
 
             EmployeeExample example = new EmployeeExample();
             example.or().andLastNameEqualTo(username);
@@ -73,13 +74,13 @@ public class HelloController {
             if (CollectionUtils.isEmpty(emps)) {
                 model.addAttribute("msg", "用户名不存在");
                 return "index.html";
-            }else {
+            } else {
                 Employee emp = emps.get(0);
-                if (Objects.isNull(emp)){
+                if (Objects.isNull(emp)) {
                     model.addAttribute("msg", "用户名或密码为空或错误");
                     return "index.html";
-                }else{
-                    session.setAttribute("user",emp);
+                } else {
+                    session.setAttribute("user", emp);
                     return "redirect:/main.html";
                 }
                 /*String md5Hex = MD5.md5Hex(password, emp.getSalt());
@@ -92,23 +93,23 @@ public class HelloController {
                     return "index.html";
                 }*/
             }
-        }else {
+        } else {
             model.addAttribute("msg", "用户名或密码为空");
             return "index.html";
         }
     }
 
     @RequestMapping("signOut")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.removeAttribute("user");
         return "index";
     }
 
     /* *
-    * 将/请求隐射到index页面,另外一种写法是MyConfigurerAdapter中的addViewControllers
-    * @author pengWX
-    * @date 2018/11/19 17:59
-    */
+     * 将/请求隐射到index页面,另外一种写法是MyConfigurerAdapter中的addViewControllers
+     * @author pengWX
+     * @date 2018/11/19 17:59
+     */
    /* @RequestMapping("/")
     public String index() {
         return "index";

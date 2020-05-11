@@ -1,0 +1,1 @@
+1.加入全局异常处理BaseGlobalExceptionHandler
