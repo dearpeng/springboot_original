@@ -6,6 +6,16 @@ import java.util.Date;
 
 
 public class Employee {
+
+    private void init(){
+        System.out.println(this.getClass().getName()+"开始初始化...");
+    }
+
+    private void destory(){
+        System.out.println(this.getClass().getName()+"开始销毁");
+    }
+
+
     /**
      * 
      */

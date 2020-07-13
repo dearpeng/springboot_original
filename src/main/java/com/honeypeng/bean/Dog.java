@@ -1,5 +1,8 @@
 package com.honeypeng.bean;
 
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+
 /**
  * Created by jx on 2018/9/16.
  */
@@ -7,7 +10,7 @@ public class Dog {
 
     private String name;
 
-    private  Integer Age;
+    private Integer Age;
 
     @Override
     public String toString() {
@@ -29,4 +32,5 @@ public class Dog {
     public void setAge(Integer age) {
         Age = age;
     }
+
 }

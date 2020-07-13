@@ -23,7 +23,9 @@ public class SynchronizedTest {
 
     public void doSth1() {
         synchronized (SynchronizedTest.class) {
+            System.out.println("==============================");
             System.out.println("Hello World");
+            System.out.println("==============================");
         }
     }
 

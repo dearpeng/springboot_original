@@ -46,8 +46,30 @@ public class SpringbootfirstApplicationTests {
     private DataSource dataSource;
 
 
+
+
+
     @Autowired
     private HttpServletRequest request;
+    @Test
+    public void test111(){
+        System.out.println("============================");
+
+       /* System.out.println(context);
+        String[] beanDefinitionNames = context.getBeanDefinitionNames();
+        for (String beanDefinitionName : beanDefinitionNames) {
+            System.out.println(beanDefinitionName);
+        }*/
+        /*System.out.println("============================");
+        Object myFactory1 = context.getBean("myFactory");
+        Object myFactory2 = context.getBean("myFactory");
+        System.out.println(myFactory1 == myFactory2);
+        //此时我们的bean类型是我们创建factory里面那个对象的类型.可以通过加上  &符号获取到myFactory本身类型
+        System.out.println(myFactory1.getClass());
+        Object myFactory3 = context.getBean("&myFactory");
+        System.out.println(myFactory3.getClass());*/
+
+    }
 
     @Test
     public void testInnit() {

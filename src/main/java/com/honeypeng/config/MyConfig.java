@@ -1,6 +1,11 @@
 package com.honeypeng.config;
 
+import com.honeypeng.bean.Dog;
+import com.honeypeng.bean.MyBeanPostProcessor;
+import com.honeypeng.bean.Pig;
 import com.honeypeng.component.MyLocalResolver;
+import com.honeypeng.entity.Employee;
+import com.honeypeng.factory.MyFactory;
 import com.honeypeng.service.IHelloService;
 import com.honeypeng.service.impl.HelloserviceImpl;
 import com.sun.org.apache.bcel.internal.util.ClassPath;
@@ -53,6 +58,23 @@ public class MyConfig {
     @Bean
     public LocaleResolver localeResolver(){
         return new MyLocalResolver();
+    }
+
+    /*@Bean
+    public MyFactory myFactory(){
+        return new MyFactory();
+    }*/
+    @Bean(initMethod = "init",destroyMethod = "destory")
+    public Employee employee(){
+        return new Employee();
+    }
+    @Bean(initMethod = "init",destroyMethod = "destory")
+    public Pig pig(){
+        return new Pig();
+    }
+    @Bean
+    public MyBeanPostProcessor myBeanPostProcessor(){
+        return new MyBeanPostProcessor();
     }
 
     /***
