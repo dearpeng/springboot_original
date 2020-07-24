@@ -1,7 +1,12 @@
 package com.honeypeng.bean;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -9,15 +14,40 @@ import javax.annotation.PreDestroy;
 /**
  * Created by jx on 2018/9/16.
  */
-public class Pig implements InitializingBean, DisposableBean {
+@Component
+public class Pig implements InitializingBean, DisposableBean, ApplicationContextAware {
 
+    private ApplicationContext context;
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.context = applicationContext;
+    }
     private String name;
 
     private Integer Age;
 
-    public Pig(){
-        System.out.println(this.getClass().getName()+"  Constructor ");
+
+//    @Autowired
+    private Dog dog;
+
+//    @Autowired
+    public Pig( @Autowired Dog dog){
+        this.dog = dog;
+        System.out.println("pig的有参构造器");
     }
+
+    public Dog getDog() {
+        return dog;
+    }
+
+    public void setDog(Dog dog) {
+        this.dog = dog;
+    }
+
+    /*public Pig(){
+        System.out.println(this.getClass().getName()+"  Constructor ");
+    }*/
 
     public String getName() {
         return name;
@@ -60,5 +90,14 @@ public class Pig implements InitializingBean, DisposableBean {
     @PreDestroy
     public void preDestory() {
         System.out.println(this.getClass().getName()+"  +++++preDestory");
+    }
+
+    @Override
+    public String toString() {
+        return "Pig{" +
+                "name='" + name + '\'' +
+                ", Age=" + Age +
+                ", dog=" + dog +
+                '}';
     }
 }

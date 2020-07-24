@@ -2,20 +2,17 @@ package com.honeypeng.bean;
 
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by jx on 2018/9/16.
  */
+@Component
 public class Dog {
 
     private String name;
 
     private Integer Age;
-
-    @Override
-    public String toString() {
-        return "Dog{" + "name='" + name + '\'' + ", Age=" + Age + '}';
-    }
 
     public String getName() {
         return name;

@@ -21,4 +21,10 @@ public interface IEmployeeService {
     Integer updateEmployee(Employee employee);
 
     List<Employee> selectByExample(EmployeeExample example);
+
+    /**
+     * 异步线程池测试
+     */
+    void asyncThreadPool();
+
 }

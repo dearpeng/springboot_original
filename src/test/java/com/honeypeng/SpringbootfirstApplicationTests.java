@@ -1,7 +1,10 @@
 package com.honeypeng;
 
 
+import com.alibaba.fastjson.JSON;
+import com.honeypeng.bean.Dog;
 import com.honeypeng.bean.Person;
+import com.honeypeng.bean.Pig;
 import com.honeypeng.config.AppConfig;
 import com.honeypeng.config.MyConfig;
 import com.honeypeng.service.impl.EmployeeServiceImpl;
@@ -39,22 +42,26 @@ public class SpringbootfirstApplicationTests {
     @Autowired
     private Person person;
 
-    @Autowired
-    private ApplicationContext context;
 
     @Autowired
     private DataSource dataSource;
 
 
-
+    @Autowired
+    private HttpServletRequest request;
 
 
     @Autowired
-    private HttpServletRequest request;
+    private ApplicationContext context;
+
     @Test
-    public void test111(){
+    public void test111() {
         System.out.println("============================");
 
+        Pig pig = context.getBean(Pig.class);
+        Dog dog = context.getBean(Dog.class);
+        System.out.println(pig);
+        System.out.println(dog);
        /* System.out.println(context);
         String[] beanDefinitionNames = context.getBeanDefinitionNames();
         for (String beanDefinitionName : beanDefinitionNames) {

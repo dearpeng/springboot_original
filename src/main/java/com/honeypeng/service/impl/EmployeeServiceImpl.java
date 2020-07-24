@@ -8,6 +8,7 @@ import com.honeypeng.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,5 +55,17 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Cacheable(value = "employeeService")
     public List<Employee> selectByExample(EmployeeExample example) {
         return employeeMapper.selectByExample(example);
+    }
+
+    @Override
+    @Async("asyncServiceExecutor")
+    public void asyncThreadPool() {
+        System.out.println("异步线程池测试服务类开始");
+        try{
+            Thread.sleep(10000);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        System.out.println("异步线程池测试服务类结束");
     }
 }

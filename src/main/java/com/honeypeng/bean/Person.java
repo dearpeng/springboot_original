@@ -1,5 +1,6 @@
 package com.honeypeng.bean;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.jar.JarEntry;
 
 /**
  * Created by jx on 2018/9/16.

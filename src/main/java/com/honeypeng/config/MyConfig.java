@@ -68,10 +68,10 @@ public class MyConfig {
     public Employee employee(){
         return new Employee();
     }
-    @Bean(initMethod = "init",destroyMethod = "destory")
+   /* @Bean(initMethod = "init",destroyMethod = "destory")
     public Pig pig(){
         return new Pig();
-    }
+    }*/
     @Bean
     public MyBeanPostProcessor myBeanPostProcessor(){
         return new MyBeanPostProcessor();

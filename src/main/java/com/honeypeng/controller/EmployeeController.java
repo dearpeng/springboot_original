@@ -4,6 +4,7 @@ import com.honeypeng.entity.Department;
 import com.honeypeng.entity.Employee;
 import com.honeypeng.service.IEmployeeService;
 import com.honeypeng.service.impl.IDepartmentService;
+import com.honeypeng.utils.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -117,5 +118,12 @@ public class EmployeeController {
     public Employee getEmp(Integer id){
         Employee employee = employeeService.selectEmployee(id);
         return employee;
+    }
+
+    @RequestMapping("testThreadPool")
+    @ResponseBody
+    public String testThreadPool(){
+        employeeService.asyncThreadPool();
+        return WebUtil.getSuccessJson("成功");
     }
 }

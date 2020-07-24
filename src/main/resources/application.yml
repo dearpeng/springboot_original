@@ -51,20 +51,20 @@ SPRING:
     redis:
       time-to-live: 2000
 
-#PERSON:
-#  NAME: ZHANGSAN
-#  AGE: 18
-#  BOSS: FALSE
-#  BIRTH: 2018/1/1
-#  MAP:
-#    K1: 1
-#    K2: 116
-#  DOG:
-#    NAME: 二哈
-#    AGE: 2
-#  LIST:
-#    - 华为
-#    - 小米
+person:
+  name: zhangsan
+  age: 18
+  boss: false
+  birth: 2018/1/1
+  map:
+    k1: 1
+    k2: 116
+  dog:
+    name: 二哈
+    age: 2
+  list:
+    - 华为
+    - 小米
 
 
 #redis配置
