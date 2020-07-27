@@ -150,6 +150,20 @@
             <artifactId>spring-boot-starter-activemq</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.python/jython-standalone -->
+        <dependency>
+            <groupId>org.python</groupId>
+            <artifactId>jython-standalone</artifactId>
+            <version>2.7.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jvnet.hudson.plugins.jython/jython-standalone -->
+        <dependency>
+            <groupId>org.jvnet.hudson.plugins.jython</groupId>
+            <artifactId>jython-standalone</artifactId>
+            <version>2.5.2</version>
+        </dependency>
+
+
 
         <!--查看对象结构-->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jol/jol-core -->
