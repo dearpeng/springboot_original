@@ -1,9 +1,9 @@
-package com.honeypeng.service;
+package com.honeypeng.service.impl;
 
 import com.honeypeng.entity.Department;
 import com.honeypeng.entity.DepartmentExample;
 import com.honeypeng.mapper.DepartmentMapper;
-import com.honeypeng.service.impl.IDepartmentService;
+import com.honeypeng.service.IDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

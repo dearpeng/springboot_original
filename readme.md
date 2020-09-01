@@ -1,1 +1,2 @@
 1.加入全局异常处理BaseGlobalExceptionHandler
+2.StandardPipeline管道模式

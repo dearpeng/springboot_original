@@ -3,14 +3,12 @@ package com.honeypeng.controller;
 import com.honeypeng.entity.Department;
 import com.honeypeng.entity.Employee;
 import com.honeypeng.service.IEmployeeService;
-import com.honeypeng.service.impl.IDepartmentService;
+import com.honeypeng.service.IDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.honeypeng.service.impl;
+package com.honeypeng.service;
 
 import com.honeypeng.entity.Department;
 
