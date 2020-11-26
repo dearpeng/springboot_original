@@ -1,6 +1,9 @@
 package com.honeypeng.service.impl;
 
 
+import com.honeypeng.config.dataSourceConfig.DataSourceHolder;
+import com.honeypeng.config.dataSourceConfig.DsTypeEnum;
+import com.honeypeng.config.dataSourceConfig.TargetDataSource;
 import com.honeypeng.entity.Employee;
 import com.honeypeng.entity.EmployeeExample;
 import com.honeypeng.mapper.EmployeeMapper;
@@ -32,11 +35,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Override
     @Cacheable(value = "employeeService")
     public Employee selectEmployee(Integer id) {
+//        DataSourceHolder.setDataSource(DsTypeEnum.ds1.getDsName());
         return employeeMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public List<Employee> getAllEmployeeList() {
+//        DataSourceHolder.setDataSource(DsTypeEnum.ds2.getDsName());
         return employeeMapper.selectByExample(new EmployeeExample());
     }
 

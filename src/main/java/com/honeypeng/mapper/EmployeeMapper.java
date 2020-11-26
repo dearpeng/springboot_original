@@ -1,5 +1,6 @@
 package com.honeypeng.mapper;
 
+import com.honeypeng.config.dataSourceConfig.TargetDataSource;
 import com.honeypeng.entity.Employee;
 import com.honeypeng.entity.EmployeeExample;
 import java.util.List;
@@ -18,9 +19,9 @@ public interface EmployeeMapper {
     int insert(Employee record);
 
     int insertSelective(Employee record);
-
+    @TargetDataSource(name = "ds2")
     List<Employee> selectByExample(EmployeeExample example);
-
+    @TargetDataSource(name = "ds1")
     Employee selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Employee record, @Param("example") EmployeeExample example);

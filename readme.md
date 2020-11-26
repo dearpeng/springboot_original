@@ -1,2 +1,5 @@
 1.加入全局异常处理BaseGlobalExceptionHandler
 2.StandardPipeline管道模式
+3.不使用mycat实现分库,比如某个mapper从1库,某个从2库(dataSourceConfig包下的代码)
+    3.1:配置多个dataSource,通过AbstractRoutingDataSource的determineCurrentLookupKey决定使用哪个dataSource.
+    3.2:MapperAnnotationAspect中通过aop读取mapper接口上的注解,获取datasource的key.就能够使用不用的DataSource.
